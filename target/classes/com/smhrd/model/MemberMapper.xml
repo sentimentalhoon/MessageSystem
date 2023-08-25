@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.model.MemberMapper">
+    <!-- Member 테이블을 사용한 SQL 에 대한 실행 문장들을 정리하는 파일 -->
+    <!-- id 속성 parameterType 속성 -->
+    <insert id="memberJoin" parameterType="com.smhrd.model.Member">
+        insert into member (email, password, phone, address) values ( #{email}, #{password}, #{phone}, #{address} )
+    </insert>
+    <select id="memberJoinExist" resultType="int" parameterType="string">
+        Select count(*) From member Where id=#{email}
+    </select>
+    <select id="memberLogin" resultType="com.smhrd.model.Member" parameterType="com.smhrd.model.Member">
+        Select email, phone, address From member Where email=#{email} and password=#{password}
+    </select>
+    <select id="memberList" resultType="com.smhrd.model.Member">
+		Select email, password, phone, address From member
+	</select>
+</mapper>
