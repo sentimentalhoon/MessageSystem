@@ -1,16 +1,31 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.smhrd.model.Message"%>
+<%@page import="java.util.List"%>
+<%@page import="com.smhrd.model.MessageDAO"%>
 <%@page import="com.smhrd.model.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
-Member memberInfo = (Member) session.getAttribute("memberInfo");
+Member info = (Member) session.getAttribute("memberInfo");
+
+if (info != null) {
+	MessageDAO dao = new MessageDAO();
+	ArrayList<Message> messageList = dao.getMessageList(info.getEmail());
+	pageContext.setAttribute("info", info);
+	pageContext.setAttribute("list", messageList);
+}
 %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>Forty by HTML5 UP</title>
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 <link rel="stylesheet" href="assets/css/main.css" />
 <style>
 .warn_text {
@@ -33,7 +48,7 @@ Member memberInfo = (Member) session.getAttribute("memberInfo");
 		<header id="header" class="alt"> <a href="goMain"
 			class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a> <nav>
 		<c:choose>
-			<c:when test="${!empty memberInfo}">
+			<c:when test="${!empty info}">
 				<a href="Member?type=logout">로그아웃</a>
 				<a href="Member?type=logout">회원 정보 수정</a>
 			</c:when>
@@ -55,8 +70,7 @@ Member memberInfo = (Member) session.getAttribute("memberInfo");
 				<li><span id="loginEmail_check" class="warn_text"> 유효한
 						이메일 주소를 입력하세요.</span></li>
 				<li><input type="password" placeholder="PW를 입력하세요"
-					name="password" required id="loginPassword" />
-				</li>
+					name="password" required id="loginPassword" /></li>
 				<li><input type="submit" value="LogIn" class="button fit"
 					disabled id="loginButton" /></li>
 			</form>
@@ -69,8 +83,7 @@ Member memberInfo = (Member) session.getAttribute("memberInfo");
 					placeholder="Email을 입력하세요" name="email" required id="joinEmail" />
 				</li>
 				<li><input type="password" placeholder="PW를 입력하세요"
-					name="password" required id="joinPassword" />
-				</li>
+					name="password" required id="joinPassword" /></li>
 				<li><input type="text" placeholder="전화번호를 입력하세요" name="phone"
 					required id="joinPhone" /></li>
 				<li><input type="text" placeholder="집주소를 입력하세요" name="address"
@@ -83,10 +96,10 @@ Member memberInfo = (Member) session.getAttribute("memberInfo");
 		<section id="banner" class="major">
 		<div class="inner">
 			<header class="major"> <c:choose>
-				<c:when test="${!empty memberInfo}">
+				<c:when test="${!empty info}">
 					<!-- Q4. 로그인 후 로그인한 사용자의 아이디로 바꾸기 -->
 					<!-- ex) 00님 환영합니다.  -->
-					<h1>${memberInfo.getEmail()}님반갑습니다.</h1>
+					<h1>${info.getEmail()}님반갑습니다.</h1>
 				</c:when>
 				<c:otherwise>
 					<!-- Q4. 로그인 후 로그인한 사용자의 아이디로 바꾸기 -->
@@ -101,15 +114,15 @@ Member memberInfo = (Member) session.getAttribute("memberInfo");
 				<ul class="actions">
 					<li><a href="goBoard" class="button next scrolly">게시판 바로가기</a></li>
 				</ul>
-			</div>
-			<div class="content">
-				<p>
-					회원 목록을 확인해 보세요!<br />
-				</p>
-				<ul class="actions">
-					<li><a href="MemberList" class="button next scrolly">회원 목록
-							바로가기</a></li>
-				</ul>
+				<c:if test="${!empty info}">
+					<p>
+						회원 목록을 확인해 보세요!<br />
+					</p>
+					<ul class="actions">
+						<li><a href="MemberList" class="button next scrolly">회원
+								목록 바로가기</a></li>
+					</ul>
+				</c:if>
 			</div>
 		</div>
 		</section>
@@ -164,19 +177,60 @@ Member memberInfo = (Member) session.getAttribute("memberInfo");
 			<!-- Two -->
 			<section id="two">
 			<div class="inner">
-				<header class="major">
-				<h2>나에게 온 메세지 확인하기</h2>
-				</header>
-				<p></p>
-				<ul class="actions">
-					<!-- Q12. 로그인 이메일 출력! -->
-					<!-- ex) 00님에게 온 메시지  -->
+				<c:choose>
+					<c:when test="${!empty info}">
+						<header class="major">
+						<h2>${info.getEmail()}온메세지확인하기</h2>
+						</header>
+						<p></p>
+						<ul class="actions">
+							<!-- Q12. 로그인 이메일 출력! -->
+							<!-- ex) 00님에게 온 메시지  -->
 
-					<!-- Q14. 메시지 전체 삭제 기능 -->
-					<li><a href="" class="button next scrolly">전체삭제하기</a></li>
-				</ul>
-				<!-- Q13. table형태로 나한테 온 메시지만 가져와서 보여주기 -->
-				<!-- Q15. 메시지 개별 삭제 기능 -->
+							<!-- Q14. 메시지 전체 삭제 기능 -->
+							<li><a href="" class="button next scrolly">전체삭제하기</a></li>
+						</ul>
+						</header>
+						<!-- Q13. table형태로 나한테 온 메시지만 가져와서 보여주기 -->
+						<div class="container text-left">
+							<div class="row">
+								<c:forEach var="message" items="${list}" varStatus="status">
+									<div class="card" style="width: 18rem;">
+										<div class="card-body">
+											<h5 class="card-title">${message.getSendEmail()}</h5>
+											<h6 class="card-subtitle mb-2 text-body-secondary">${message.getReceiveEmail()}</h6>
+											<p class="card-text">${message.getMessage()}</p>
+										</div>
+									</div>
+								</c:forEach>
+									<div class="card" style="width: 18rem;">
+										<div class="card-body">
+											<h5 class="card-title">aaa</h5>
+											<h6 class="card-subtitle mb-2 text-body-secondary">bbb</h6>
+											<p class="card-text">${stringMessage}</p>
+										</div>
+									</div>
+							</div>
+						</div>
+						<!-- Q15. 메시지 개별 삭제 기능 -->
+					</c:when>
+					<c:otherwise>
+						<header class="major">
+						<h2>나에게 온 메세지 확인하기</h2>
+						</header>
+						<p></p>
+						<ul class="actions">
+							<!-- Q12. 로그인 이메일 출력! -->
+							<!-- ex) 00님에게 온 메시지  -->
+
+							<!-- Q14. 메시지 전체 삭제 기능 -->
+							<li><a href="" class="button next scrolly">전체삭제하기</a></li>
+						</ul>
+						<!-- Q13. table형태로 나한테 온 메시지만 가져와서 보여주기 -->
+						<!-- Q15. 메시지 개별 삭제 기능 -->
+						</header>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			</section>
 		</div>
@@ -184,27 +238,54 @@ Member memberInfo = (Member) session.getAttribute("memberInfo");
 		<!-- Contact -->
 		<section id="contact">
 		<div class="inner">
-			<section> <!-- Q11. 메시지 보내기 기능 -->
-			<form action="">
-				<div class="field half first">
-					<label for="name">Name</label> <input type="text" id="name"
-						placeholder="보내는 사람 이름" />
-				</div>
-				<div class="field half">
-					<label for="email">Email</label> <input type="text" id="email"
-						placeholder="받는 사람 이메일" />
-				</div>
+			<section> <!-- Q11. 메시지 보내기 기능 --> <c:choose>
+				<c:when test="${!empty info}">
+					<form action="MessageService" method="POST">
+						<div class="field half first">
+							<label for="name">Name</label> <input type="text" id="name"
+								name="sendEmail" placeholder="${info.getEmail()}"
+								value="${info.getEmail()}" readonly />
+						</div>
+						<div class="field half">
+							<label for="email">Email</label> <input type="text" id="email"
+								name="receiveEmail" placeholder="받는 사람 이메일" />
+						</div>
 
-				<div class="field">
-					<label for="message">Message</label>
-					<textarea name="message" id="message" rows="6"></textarea>
-				</div>
-				<ul class="actions">
-					<li><input type="submit" value="Send Message" class="special" /></li>
-					<li><input type="reset" value="Clear" /></li>
-				</ul>
-			</form>
-			</section>
+						<div class="field">
+							<label for="message">Message</label>
+							<textarea name="message" id="message" rows="6"></textarea>
+						</div>
+						<ul class="actions">
+							<li><input type="submit" value="Send Message"
+								class="special" /></li>
+							<li><input type="reset" value="Clear" /></li>
+						</ul>
+					</form>
+				</c:when>
+				<c:otherwise>
+					<form action="#" method="POST">
+						<div class="field half first">
+							<label for="name">Name</label> <input type="text" id="name"
+								name="sendEmail" placeholder="보내는 사람 이름" disabled="disabled" />
+						</div>
+						<div class="field half">
+							<label for="email">Email</label> <input type="text" id="email"
+								name="receiveEmail" placeholder="받는 사람 이메일" disabled="disabled" />
+						</div>
+
+						<div class="field">
+							<label for="message">Message</label>
+							<textarea name="message" id="message" disabled="disabled"
+								rows="6"></textarea>
+						</div>
+						<ul class="actions">
+							<li><input type="submit" value="Send Message"
+								class="special" disabled="disabled" /></li>
+							<li><input type="reset" value="Clear" /></li>
+						</ul>
+					</form>
+				</c:otherwise>
+			</c:choose> </section>
 
 			<section class="split"> <section>
 			<div class="contact-method">
@@ -212,8 +293,8 @@ Member memberInfo = (Member) session.getAttribute("memberInfo");
 				<h3>Email</h3>
 				<!-- Q5. 로그인 한 사용자의 이메일을 출력 -->
 				<c:choose>
-					<c:when test="${!empty memberInfo}">
-						<span>${memberInfo.getEmail()}</span>
+					<c:when test="${!empty info}">
+						<span>${info.getEmail()}</span>
 					</c:when>
 					<c:otherwise>
 						<a href="#"></a>
@@ -226,8 +307,8 @@ Member memberInfo = (Member) session.getAttribute("memberInfo");
 				<h3>Phone</h3>
 				<!-- Q5. 로그인 한 사용자의 전화번호를 출력 -->
 				<c:choose>
-					<c:when test="${!empty memberInfo}">
-						<span>${memberInfo.getPhone()}</span>
+					<c:when test="${!empty info}">
+						<span>${info.getPhone()}</span>
 					</c:when>
 					<c:otherwise>
 						<a href="#"></a>
@@ -240,8 +321,8 @@ Member memberInfo = (Member) session.getAttribute("memberInfo");
 				<h3>Address</h3>
 				<!-- Q5. 로그인 한 사용자의 집주소를 출력 -->
 				<c:choose>
-					<c:when test="${!empty memberInfo}">
-						<span>${memberInfo.getAddress()}</span>
+					<c:when test="${!empty info}">
+						<span>${info.getAddress()}</span>
 					</c:when>
 					<c:otherwise>
 						<a href="#"></a>
@@ -334,6 +415,17 @@ Member memberInfo = (Member) session.getAttribute("memberInfo");
 				login_btn.disabled = true;
 			}
 		}
+		
+		fetch("https://localhost:3000/user/post", {
+			  method: "POST",
+			  headers: {
+			    "Content-Type": "application/json",
+			  },
+			  body: JSON.stringify({
+			    id: "asd123",
+			    description: "hello world",
+			  }),
+			}).then((response) => console.log(response));
 	</script>
 </body>
 </html>

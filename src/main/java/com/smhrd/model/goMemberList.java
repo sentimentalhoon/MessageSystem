@@ -31,7 +31,7 @@ public class goMemberList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    response.setContentType("application/json;charset=UTF-8");
 	    try (PrintWriter out = response.getWriter()) {
-	      MemberDao dao = new MemberDao();
+	      MemberDAO dao = new MemberDAO();
 	      List<Member> memberList = dao.memberList();
 
 	      request.setAttribute("memberList", memberList);

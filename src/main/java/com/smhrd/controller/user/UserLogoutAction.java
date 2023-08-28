@@ -12,7 +12,7 @@ public class UserLogoutAction  implements Action {
   public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     HttpSession session=request.getSession();
     session.invalidate();
-    Script.href("logout complete", "goMain", response);
+    Script.href("로그아웃 완료. logout complete", "goMain", response);
       
   }
 }

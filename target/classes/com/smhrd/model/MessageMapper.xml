@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.model.MessageMapper">		
+	<insert id="sendMessage" parameterType="com.smhrd.model.Message">
+		insert into web_message (num, sendemail, receiveemail, message, m_date) values (WEB_MESSAGE_SEQ.NEXTVAL, #{sendEmail}, #{receiveEmail}, #{message}, SYSDATE)	
+	</insert>
+	<select id="getMessageList" resultType="com.smhrd.model.Message" parameterType="string">
+        Select * From web_message Where receiveemail=#{email}
+    </select>
+</mapper>

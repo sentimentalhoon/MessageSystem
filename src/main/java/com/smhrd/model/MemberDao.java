@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import com.smhrd.database.SqlSessionManager;
 
-public class MemberDao {
+public class MemberDAO {
   // 자바와 DB 의 연결을 위한 작업! -> 어떤 작업을 처리할 것인지 연결!
 
   // 0. SqlSessionManager(Class) 기능 불러오기
