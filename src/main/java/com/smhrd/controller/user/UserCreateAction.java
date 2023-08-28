@@ -16,9 +16,8 @@ public class UserCreateAction extends UserDataBase implements Action {
 
     request.setCharacterEncoding("UTF-8");
     String email = request.getParameter("email");
-
     if (existEmail(email) > 0) {
-      Script.back("이미 존재하는 이메일 주소입니다.", response);
+      Script.back("이미 존재하는 이메일 주소입니다. email is exist", response);
     } else {
       String password = request.getParameter("password");
       String phone = request.getParameter("phone");
@@ -31,7 +30,7 @@ public class UserCreateAction extends UserDataBase implements Action {
       member.setAddress(address);
 
       if (join(member) > 0) {        
-        String url = "WEB-INF/JoinSuccess.jsp?email=" + email;
+        String url = "WEB-INF/JoinSuccess.jsp?email=" + email;     
         RequestDispatcher rd = request.getRequestDispatcher(url);
         rd.forward(request, response);
       } else {

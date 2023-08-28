@@ -7,7 +7,7 @@
         insert into member (email, password, phone, address) values ( #{email}, #{password}, #{phone}, #{address} )
     </insert>
     <select id="memberJoinExist" resultType="int" parameterType="string">
-        Select count(*) From member Where id=#{email}
+        Select count(*) From member Where email=#{email}
     </select>
     <select id="memberLogin" resultType="com.smhrd.model.Member" parameterType="com.smhrd.model.Member">
         Select email, phone, address From member Where email=#{email} and password=#{password}
