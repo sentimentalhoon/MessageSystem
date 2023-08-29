@@ -6,18 +6,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 Object obj = request.getAttribute("memberList");
-
-ArrayList<Member> memberList = new ArrayList<Member>();
-if (obj instanceof ArrayList<?>) {
-  ArrayList<?> al = (ArrayList<?>) obj;
-  if (al.size() > 0) {
-    for (int i = 0; i < al.size(); i++) {
-  Object o = al.get(i);
-  if (o instanceof Member) {
-    memberList.add((Member) o);
-  }
-    }
-  }
+if (obj != null) {
+	ArrayList<Member> memberList = new ArrayList<Member>();
+	if (obj instanceof ArrayList<?>) {
+		ArrayList<?> al = (ArrayList<?>) obj;
+		if (al.size() > 0) {
+	for (int i = 0; i < al.size(); i++) {
+		Object o = al.get(i);
+		if (o instanceof Member) {
+			memberList.add((Member) o);
+		}
+	}
+		}
+	}
 }
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -25,13 +26,11 @@ if (obj instanceof ArrayList<?>) {
 <head>
 <title>Forty by HTML5 UP</title>
 <meta charset="UTF-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" href="assets/css/main.css" />
-
 </head>
-<style>
-</style>
-<body style="text-align: center;">
+<style></style>
+<body style="text-align: center">
 	<!-- Wrapper -->
 	<div id="wrapper">
 		<!-- Menu -->
@@ -55,6 +54,7 @@ if (obj instanceof ArrayList<?>) {
 			</c:forEach>
 		</table>
 		</nav>
+		<button id="more">불러오기</button>
 		<a href="goMain" class="button next scrolly">되돌아가기</a>
 	</div>
 	<!-- Scripts -->
@@ -63,8 +63,21 @@ if (obj instanceof ArrayList<?>) {
 	<script src="assets/js/jquery.scrollex.min.js"></script>
 	<script src="assets/js/skel.min.js"></script>
 	<script src="assets/js/util.js"></script>
-	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	<!--[if lte IE 8
+          ]><script src="assets/js/ie/respond.min.js"></script
+        ><![endif]-->
 	<script src="assets/js/main.js"></script>
+
+	<script>
+          document
+            .querySelector(".more")
+            .addEventListener("click", function () {
+              fetch("/more")
+                .then((r) => r.json())
+                .then((result) => {
+                  console.log(result);
+                });
+            });
+        </script>
 </body>
 </html>
-
