@@ -19,8 +19,8 @@
 	</environments>
 	<!-- sql 문장들이 정리된 파일을 연결하는 태그 -->
 	<mappers>
-		<mapper resource="com/smhrd/model/MemberMapper.xml" />
-		<mapper resource="com/smhrd/model/MessageMapper.xml" />
-		<mapper resource="com/smhrd/model/BoardMapper.xml" />
+		<mapper resource="com/smhrd/model/MapperXML/MemberMapper.xml" />
+		<mapper resource="com/smhrd/model/MapperXML/MessageMapper.xml" />
+		<mapper resource="com/smhrd/model/MapperXML/BoardMapper.xml" />
 	</mappers>
 </configuration>

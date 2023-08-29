@@ -6,14 +6,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.smhrd.controller.board.BoardArticleCreateAction;
-import com.smhrd.controller.board.BoardArticleDeleteAction;
-import com.smhrd.controller.board.BoardArticleReadAction;
-import com.smhrd.controller.board.BoardArticleUpdateAction;
-import com.smhrd.controller.board.BoardListReadAction;
+
+import com.smhrd.controller.board.Action.BoardArticleCreateAction;
+import com.smhrd.controller.board.Action.BoardArticleDeleteAction;
+import com.smhrd.controller.board.Action.BoardArticleReadAction;
+import com.smhrd.controller.board.Action.BoardArticleUpdateAction;
+import com.smhrd.controller.board.Action.BoardListReadAction;
 import com.smhrd.controller.user.Action;
 
-@WebServlet("/goBoard")
+@WebServlet("/Board")
 public class GoBoardController extends HttpServlet {
   private static final long serialVersionUID = 1L;
 

@@ -6,9 +6,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.smhrd.model.Member;
+import com.smhrd.model.MemberDAO;
 import com.smhrd.utils.Script;
 
-public class UserCreateAction extends UserDataBase implements Action {
+public class UserCreateAction extends MemberDAO implements Action {
 
   @Override
   public void execute(HttpServletRequest request, HttpServletResponse response)
@@ -16,7 +17,7 @@ public class UserCreateAction extends UserDataBase implements Action {
 
     request.setCharacterEncoding("UTF-8");
     String email = request.getParameter("email");
-    if (existEmail(email) > 0) {
+    if (existId(email) > 0) {
       Script.back("이미 존재하는 이메일 주소입니다. email is exist", response);
     } else {
       String password = request.getParameter("password");

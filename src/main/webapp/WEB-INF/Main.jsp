@@ -108,7 +108,7 @@ if (info != null) {
 					게시판을 이용해보세요 ^^<br />
 				</p>
 				<ul class="actions">
-					<li><a href="goBoard" class="button next scrolly">게시판 바로가기</a></li>
+					<li><a href="Board?type=readBoardList" class="button next scrolly">게시판 바로가기</a></li>
 				</ul>
 				<c:if test="${!empty info}">
 					<p>

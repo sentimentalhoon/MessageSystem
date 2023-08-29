@@ -7,9 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.smhrd.model.Member;
+import com.smhrd.model.MemberDAO;
 import com.smhrd.utils.Script;
 
-public class UserReadAction extends UserDataBase implements Action {
+public class UserReadAction extends MemberDAO implements Action {
 
   @Override
   public void execute(HttpServletRequest request, HttpServletResponse response)

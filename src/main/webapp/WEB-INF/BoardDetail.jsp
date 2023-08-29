@@ -1,5 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import="com.smhrd.model.Board"%>
+    <%
+	Board board = (Board)request.getAttribute("board");
+    pageContext.setAttribute("board", board);
+	%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,21 +15,22 @@
 		<link rel="stylesheet" href="assetsBoard/css/board.css" />
 </head>
 <body>
+	${board.getNum()}
 			<!-- Q19. 게시글 세부내용 조회 기능 -->
 			<div id = "board">
 				<table id="list">
 					<tr>
-						<td>제목</td>
+						<td>${board.getTitle()}</td>
 					</tr>
 					<tr>
-						<td>작성자</td>
+						<td>${board.getWriter()}</td>
 					</tr>
 					<tr>
 						<td>다운로드</td>
 						<td><a href = "" download>다운로드</a></td>
 					</tr>
 					<tr>
-						<td colspan="2">내용</td>
+						<td colspan="2">${board.getContent()}</td>
 					</tr>
 					<tr>
 						<td colspan="2">
@@ -32,7 +38,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2"><a href="goBoard"><button>뒤로가기</button></a></td>
+						<td colspan="2"><a href="Board?type=readBoardList"><button>뒤로가기</button></a></td>
 					</tr>
 				</table>
 			</div>
