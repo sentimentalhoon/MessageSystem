@@ -29,7 +29,7 @@ public class GoMemberController extends HttpServlet {
       throws ServletException, IOException {
     String cmd = request.getParameter("type");
     Action action = router(cmd);
-    action.execute(request, response);    
+    action.execute(request, response);
   }
 
   public Action router(String cmd) {
@@ -48,9 +48,9 @@ public class GoMemberController extends HttpServlet {
     if (cmd.equals("delete")) {
       return new UserDeleteAction();
     }
-    if(cmd.equals("logout")) {
+    if (cmd.equals("logout")) {
       return new UserLogoutAction();
-  }
+    }
     return null;
   }
 }

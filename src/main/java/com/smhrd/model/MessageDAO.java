@@ -31,6 +31,7 @@ public class MessageDAO {
 
   public ArrayList<Message> getMessageList(String email) {
     ArrayList<Message> messageList = null;
+    Object o = null;
     try (SqlSession sqlSession = sqlSessionFactory.openSession(true);) {
       messageList = new ArrayList<Message>();
       // 1. 데이터 베이스 연결 -> 연결 객체 대여
@@ -45,20 +46,31 @@ public class MessageDAO {
     return messageList;
   }
 
+  public int deleteMessage(String num) {
+    int result = 0;
+    
+    try (SqlSession sqlSession = sqlSessionFactory.openSession(true);) {
+      // 2. sql 문장 선택
+      result =  sqlSession.delete("deleteMessage", num);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }    
+    return result;
+  }
   public String getMessageListToJson(String email) {
     ArrayList<Message> messageList = null;
     String jsonPlace = null;
+    Object o = null;
     try (SqlSession sqlSession = sqlSessionFactory.openSession(true)) {
       messageList = new ArrayList<Message>();
       // 1. 데이터 베이스 연결 -> 연결 객체 대여
       // true == autocommit
 
-
       // 2. sql 문장 선택
-      messageList = (ArrayList) sqlSession.selectList("getMessageList", email);
+      o = sqlSession.selectList("getMessageList", email);
 
       Gson gson = new Gson();
-      jsonPlace = gson.toJson(messageList);
+      jsonPlace = gson.toJson(o);
 
     } catch (Exception e) {
       e.printStackTrace();

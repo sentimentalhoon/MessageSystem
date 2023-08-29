@@ -7,4 +7,7 @@
 	<select id="getMessageList" resultType="com.smhrd.model.Message" parameterType="string">
         Select * From web_message Where receiveemail=#{email}
     </select>
+    <delete id="deleteMessage" parameterType="string">
+		delete From web_message Where num=#{num}
+	</delete>
 </mapper>

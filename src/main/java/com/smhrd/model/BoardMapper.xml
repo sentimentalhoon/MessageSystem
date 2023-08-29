@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.model.BoardMapper">
+	<insert id="WrightBoard" parameterType="com.smhrd.model.Board">
+		insert into web_board (num, title, writer, filename, content, b_date) values (WEB_BOARD_SEQ.NEXTVAL, #{title}, #{writer}, #{filename},#{content}, SYSDATE)	
+	</insert>
+	<select id="ReadBoardList" resultType="com.smhrd.model.Board" parameterType="string">
+        Select num, title, writer, b_date From web_board ORDER BY NUM DESC
+    </select>
+    <select id="ReadBoardArticle" resultType="com.smhrd.model.Board" parameterType="string">
+        Select * From web_board Where num=#{num}
+    </select>
+    <delete id="DelteBoard" parameterType="string">
+		delete From web_board Where num=#{num}
+	</delete>	
+</mapper>

@@ -8,12 +8,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 Member info = (Member) session.getAttribute("memberInfo");
-
 if (info != null) {
-	MessageDAO dao = new MessageDAO();
-	ArrayList<Message> messageList = dao.getMessageList(info.getEmail());
 	pageContext.setAttribute("info", info);
-	pageContext.setAttribute("list", messageList);
 }
 %>
 
@@ -190,28 +186,11 @@ if (info != null) {
 							<!-- Q14. 메시지 전체 삭제 기능 -->
 							<li><a href="" class="button next scrolly">전체삭제하기</a></li>
 						</ul>
+						<div data-bs-spy="scroll" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">						
+						<div id="messageArea" class="d-flex flex-column mb-3"></div>
+						</div>
 						</header>
 						<!-- Q13. table형태로 나한테 온 메시지만 가져와서 보여주기 -->
-						<div class="container text-left">
-							<div class="row">
-								<c:forEach var="message" items="${list}" varStatus="status">
-									<div class="card" style="width: 18rem;">
-										<div class="card-body">
-											<h5 class="card-title">${message.getSendEmail()}</h5>
-											<h6 class="card-subtitle mb-2 text-body-secondary">${message.getReceiveEmail()}</h6>
-											<p class="card-text">${message.getMessage()}</p>
-										</div>
-									</div>
-								</c:forEach>
-									<div class="card" style="width: 18rem;">
-										<div class="card-body">
-											<h5 class="card-title">aaa</h5>
-											<h6 class="card-subtitle mb-2 text-body-secondary">bbb</h6>
-											<p class="card-text">${stringMessage}</p>
-										</div>
-									</div>
-							</div>
-						</div>
 						<!-- Q15. 메시지 개별 삭제 기능 -->
 					</c:when>
 					<c:otherwise>
@@ -365,6 +344,48 @@ if (info != null) {
 	<script src="assets/js/main.js"></script>
 
 	<script>
+			
+		let loadMessage = () => fetch("Message/Load", {
+			  method: "GET",
+			  headers: {
+			    "Content-Type": "application/json",
+			  }
+			})
+			.then((response) => response.json())
+			.then((json) => {
+				let msgArea = document.getElementById('messageArea')
+				let html = ''
+				json.forEach(element => {
+html += '<div class="d-inline-flex p-2">'
+					html += '<div class="card" style="width: 100%;">'
+  					html += 	'<div class="card-body">'  	    			
+    				html += 		'<h5 class="card-title" style="display:inline">' + element.sendEmail + '</h5>'
+   html += '<p class="card-text">' + element.message + '</p>'
+   html += '<p class="card-text"><small class="text-body-secondary">' + element.m_date + '</small></p>'
+		html +=   '<button type="button" class="btn btn-dark" id="btn' + element.num + '"value="'+ element.num +'" onclick="deleteValue(this)">DELETE</button>'
+ html +=  '</div>'
+ html +=  '</div>'
+html += '</div>'
+				})
+				msgArea.innerHTML = html
+			});		
+
+		loadMessage()
+
+		let deleteValue = async function (btn){
+			await deleteMessage(btn.value)
+			loadMessage()
+		}
+
+		async function deleteMessage(num){
+			await fetch("Message/Delete?num=" + num, {
+				method: "GET"
+			  })
+			  .then((response) => {
+				alert('삭제 완료하였습니다.')
+			});
+		}
+
 		// 이메일 실시간 체크
 		function printEmail() {
 			// 이메일 입력창, 이메일 입력조건 불만족 시 하단에 표시되는 경고 텍스트 변수에 할당
@@ -415,17 +436,7 @@ if (info != null) {
 				login_btn.disabled = true;
 			}
 		}
-		
-		fetch("https://localhost:3000/user/post", {
-			  method: "POST",
-			  headers: {
-			    "Content-Type": "application/json",
-			  },
-			  body: JSON.stringify({
-			    id: "asd123",
-			    description: "hello world",
-			  }),
-			}).then((response) => console.log(response));
+
 	</script>
 </body>
 </html>

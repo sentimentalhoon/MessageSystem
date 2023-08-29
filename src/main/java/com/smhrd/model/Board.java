@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor // 매개 변수를 입력 받는 생성자 메소드 지정
 @NoArgsConstructor // 기본 생성자 메소드 지정
-public class Message {
+public class Board {
   private String num;
-  private String sendEmail;
-  private String receiveEmail;
-  private String message;
-  private String m_date;
+  private String title;
+  private String writer;
+  private String filename;
+  private String content;
+  private String b_date;
 }
