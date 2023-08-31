@@ -33,6 +33,8 @@ public class loadMessage extends HttpServlet {
 					MessageDAO dao = new MessageDAO();
 					returnString = dao.getMessageListToJson(member.getEmail());
 					out.write(returnString);
+				} else {
+				  out.write("{}");
 				}
 			}
 		}

@@ -2,18 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smhrd.model.BoardMapper">
 	<insert id="CreateArticle" parameterType="com.smhrd.model.Board">
-		insert into web_board (num, title, writer, filename, content, b_date) values (NUM_BOARD_SEQ.NEXTVAL, #{title}, #{writer}, #{filename},#{content}, SYSDATE)	
+		insert into web_board (num, title, writer, filename, content, b_date)
+		values (WEB_BOARD_SEQ.NEXTVAL, #{title}, #{writer},
+		#{filename},#{content}, SYSDATE)
 	</insert>
-    <select id="ReadArticle" resultType="com.smhrd.model.Board" parameterType="string">
-        Select * From web_board Where num=#{num}
-    </select>
-    <update id="UpdateArticle" parameterType="com.smhrd.model.Board">
-        update web_board set TITLE=#{title}, FILENAME=#{filename}, CONTENT=#{content} where num=#{num}
-    </update>
-    <delete id="DeleteArticle" parameterType="string">
+	<select id="ReadArticle" resultType="com.smhrd.model.Board"
+		parameterType="string">
+		Select * From web_board Where num=#{num}
+	</select>
+	<update id="UpdateArticle" parameterType="com.smhrd.model.Board">
+		update web_board set TITLE=#{title}, FILENAME=#{filename},
+		CONTENT=#{content} where num=#{num}
+	</update>
+	<delete id="DeleteArticle" parameterType="string">
 		delete From web_board Where num=#{num}
-	</delete>	
-	<select id="ReadBoardList" resultType="com.smhrd.model.Board" parameterType="string">
-        Select num, title, writer, b_date From web_board ORDER BY NUM DESC
-    </select>
+	</delete>
+	<select id="ReadBoardList" resultType="com.smhrd.model.Board"
+		parameterType="string"> 
+		<![CDATA[ 
+		SELECT * FROM ( SELECT num, title, writer,
+		b_date FROM web_board ORDER BY NUM DESC ) WHERE ROWNUM <= 10
+		]]>
+	</select>
 </mapper>

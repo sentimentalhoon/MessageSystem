@@ -27,7 +27,7 @@ if (obj != null) {
 <title>Forty by HTML5 UP</title>
 <meta charset="UTF-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" href="assets/css/main.css" />
+<link rel="stylesheet" href="./assets/css/main.css" />
 </head>
 <style></style>
 <body style="text-align: center">
@@ -58,15 +58,15 @@ if (obj != null) {
 		<a href="goMain" class="button next scrolly">되돌아가기</a>
 	</div>
 	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/skel.min.js"></script>
-	<script src="assets/js/util.js"></script>
+	<script src="./assets/js/jquery.min.js"></script>
+	<script src="./assets/js/jquery.scrolly.min.js"></script>
+	<script src="./assets/js/jquery.scrollex.min.js"></script>
+	<script src="./assets/js/skel.min.js"></script>
+	<script src="./assets/js/util.js"></script>
 	<!--[if lte IE 8
           ]><script src="assets/js/ie/respond.min.js"></script
         ><![endif]-->
-	<script src="assets/js/main.js"></script>
+	<script src="./assets/js/main.js"></script>
 
 	<script>
           document

@@ -12,10 +12,10 @@ import com.smhrd.controller.board.Action.BoardArticleDeleteAction;
 import com.smhrd.controller.board.Action.BoardArticleReadAction;
 import com.smhrd.controller.board.Action.BoardArticleUpdateAction;
 import com.smhrd.controller.board.Action.BoardListReadAction;
-import com.smhrd.controller.user.Action;
+import com.smhrd.controller.board.Action.BoardNullPageAction;
 
 @WebServlet("/Board")
-public class GoBoardController extends HttpServlet {
+public class BoardController extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   protected void service(HttpServletRequest request, HttpServletResponse response)
@@ -25,27 +25,27 @@ public class GoBoardController extends HttpServlet {
 
   protected void doProcess(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    String cmd = request.getParameter("type");
-    Action action = router(cmd);
+    String cmd = request.getParameter("action");
+    Action action = router(cmd, response);
     action.execute(request, response);
   }
 
-  public Action router(String cmd) {
-    if (cmd.equals("createArticle")) {
+  public Action router(String cmd, HttpServletResponse response) {
+    if (cmd.equals("create")) {
       return new BoardArticleCreateAction();
     }
-    if (cmd.equals("readArticle")) {
+    if (cmd.equals("read")) {
       return new BoardArticleReadAction();
     }
-    if (cmd.equals("readBoardList")) {
+    if (cmd.equals("readList")) {
       return new BoardListReadAction();
     }
-    if (cmd.equals("updateArticle")) {
+    if (cmd.equals("update")) {
       return new BoardArticleUpdateAction();
     }
-    if (cmd.equals("deleteArticle")) {
+    if (cmd.equals("delete")) {
       return new BoardArticleDeleteAction();
     }
-    return null;
+    return new BoardNullPageAction();
   }
 }

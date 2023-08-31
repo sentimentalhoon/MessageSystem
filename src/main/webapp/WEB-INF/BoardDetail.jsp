@@ -11,11 +11,10 @@
 		<title>Forty by HTML5 UP</title>
 		<meta charset="utf-8" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link rel="stylesheet" href="assetsBoard/css/main.css" />
-		<link rel="stylesheet" href="assetsBoard/css/board.css" />
+		<link rel="stylesheet" href="../assetsBoard/css/main.css" />
+		<link rel="stylesheet" href="../assetsBoard/css/board.css" />
 </head>
 <body>
-	${board.getNum()}
 			<!-- Q19. 게시글 세부내용 조회 기능 -->
 			<div id = "board">
 				<table id="list">
@@ -38,16 +37,16 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2"><a href="Board?type=readBoardList"><button>뒤로가기</button></a></td>
+						<td colspan="2"><a href="/Board/List"><button>뒤로가기</button></a></td>
 					</tr>
 				</table>
 			</div>
 			<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/skel.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
 </body>
 </html>
