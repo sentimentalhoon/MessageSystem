@@ -8,13 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.smhrd.controller.Action;
 import com.smhrd.model.Board;
 import com.smhrd.model.BoardDAO;
-import com.smhrd.utils.Script;
 
-@WebServlet("/Board/List")
 public class BoardPageList extends HttpServlet {
   /**
   * 

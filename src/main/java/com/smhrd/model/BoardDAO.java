@@ -1,11 +1,9 @@
 package com.smhrd.model;
 
 import java.util.ArrayList;
-
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-
-import com.smhrd.database.SqlSessionManager;
+import com.smhrd.database.mysql.SqlSessionManager;
 
 public class BoardDAO {
     SqlSessionFactory sqlSessionFactory = SqlSessionManager.getSqlSessionFactory();

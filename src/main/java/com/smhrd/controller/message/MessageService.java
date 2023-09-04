@@ -1,7 +1,6 @@
-package com.smhrd.controller;
+package com.smhrd.controller.message;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,10 +10,6 @@ import com.smhrd.model.Message;
 import com.smhrd.model.MessageDAO;
 import com.smhrd.utils.Script;
 
-/**
- * Servlet implementation class MessageService
- */
-@WebServlet("/MessageService")
 public class MessageService extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

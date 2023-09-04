@@ -1,4 +1,4 @@
-package com.smhrd.database;
+package com.smhrd.database.mysql;
 
 import java.io.InputStream;
 

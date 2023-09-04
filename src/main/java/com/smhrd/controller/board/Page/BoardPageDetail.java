@@ -11,7 +11,6 @@ import com.smhrd.model.Board;
 import com.smhrd.model.BoardDAO;
 import com.smhrd.utils.Script;
 
-@WebServlet("/Board/Read")
 public class BoardPageDetail extends HttpServlet {
   private static final long serialVersionUID = 1L;
   private static final String CHARSET = "utf-8";

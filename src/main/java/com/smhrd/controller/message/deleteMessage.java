@@ -11,10 +11,6 @@ import javax.servlet.http.HttpSession;
 import com.smhrd.model.Member;
 import com.smhrd.model.MessageDAO;
 
-/**
- * Servlet implementation class deleteMessage
- */
-@WebServlet("/Message/Delete")
 public class deleteMessage extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
